@@ -18,7 +18,7 @@ const json = '{"keys":[{"alg":"RS256", xxxxx}';
 
 const config: AwsJwtVerifierConfig = {
     jwksJson: json,
-    tokenType: 'access',    // either 'access' or 'id' for access token or id token
+    tokenType: 'access',  // specify the type of token to be passed into verify(), either 'access' or 'id' for access token or id token respectively
     iss: 'https://cognito-idp.{region}.amazonaws.com/{userPoolId}'
 };
 
@@ -27,15 +27,16 @@ const awsJwtVerifier = new AwsJwtVerifier(config);
 
 Verify token
 ```
+// the token type should be match with the config above
+// i.e. access token
 const token = 'xxxxxxx';
 
-// pass 'access' token to verify
 const result = awsJwtVerifier.verify(token);
 
 if (result.is_ok())
-    console.log(result.unwrap());
+    console.log(result.unwrap());   // decoded jwt is returned
 else
-    console.log(result.unwrap_err());
+    console.log(result.unwrap_err());   // error msg
 ```
 
 If you want to know how to verify a token, please refer to the following documents.
