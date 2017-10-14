@@ -1,50 +1,46 @@
 # aws-jwt-verifier
 
-Port the Result and Option classes from Rust to Typescript.
+A library to verify AWS jwt when using AWS user pool.
 
 ## Installation
 
 ```
-yarn add result-class
+yarn add aws-jwt-verifier
 ```
 
 ## Usage
 
+Init AwsJwtVerifier.
 ```
-function getUserName(userId: number): Option<string>
-{
-    return 1 === userId ? new Some('Vincent') : None.getInstance();
-}
+// paste the content of jwks.json here
+// https://cognito-idp.{region}.amazonaws.com/{userPoolId}/.well-known/jwks.json
+const json = '{"keys":[{"alg":"RS256", xxxxx}';
 
-const userName1 = getUserName(1);
-console.log( userName1.unwrap_or('Cannot found') );  // Vincent
+const config: AwsJwtVerifierConfig = {
+    jwksJson: json,
+    tokenType: 'access',    // either 'access' or 'id' for access token or id token
+    iss: 'https://cognito-idp.{region}.amazonaws.com/{userPoolId}'
+};
 
-const userName100 = getUserName(100);
-console.log( userName100.unwrap_or('Cannot found') );  // Cannot found
-```
-
-```
-function getPid(processName: string): Result<number, string>
-{
-    return 'zsh' === processName ? new Ok(123) : new Err('Process not found');
-}
-
-const pidZsh = getPid('zsh')
-                    .map(pid => 'Pid = ' + pid)
-                    .unwrap_or('Pid Not Found');
-
-console.log(pidZsh);    // Pid = 123
-
-const pidBash = getPid('bash')
-                    .map(pid => 'Pid = ' + pid)
-                    .unwrap_or('Pid Not Found');
-
-console.log(pidBash);   // 'Pid Not Found'
+const awsJwtVerifier = new AwsJwtVerifier(config);
 ```
 
-More usage can be found in rust document  
-https://doc.rust-lang.org/std/result/enum.Result.html  
-https://doc.rust-lang.org/std/option/enum.Option.html
+Verify token
+```
+const token = 'xxxxxxx';
+
+// pass 'access' token to verify
+const result = awsJwtVerifier.verify(token);
+
+if (result.is_ok())
+    console.log(result.unwrap());
+else
+    console.log(result.unwrap_err());
+```
+
+If you want to know how to verify a token, please refer to the following documents.
+http://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-with-identity-providers.html  
+https://aws.amazon.com/blogs/mobile/integrating-amazon-cognito-user-pools-with-api-gateway/
 
 ## Contributing
 
