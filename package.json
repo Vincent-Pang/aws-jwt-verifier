@@ -1,0 +1,52 @@
+{
+  "name": "aws-jwt-verifier",
+  "repository": "https://github.com/Vincent-Pang/aws-jwt-verifier.git",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "prepublishOnly": "tsc --declaration --outDir dist"
+  },
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/dist/"
+    ],
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx)$",
+    "collectCoverage": true,
+    "mapCoverage": true,
+    "coverageDirectory": "test_coverage_dir",
+    "collectCoverageFrom": [
+      "src/**/*.tsx",
+      "src/**/*.ts",
+      "!src/**/*.d.ts"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^21.1.2",
+    "@types/jsonwebtoken": "^7.2.3",
+    "@types/mockdate": "^2.0.0",
+    "mockdate": "^2.0.2",
+    "ts-jest": "^21.1.0",
+    "tslint": "^5.7.0",
+    "typescript": "^2.5.3"
+  },
+  "dependencies": {
+    "builder-pattern": "^1.0.1",
+    "jsonwebtoken": "^8.1.0",
+    "jwk-to-pem": "^1.2.6",
+    "result-class": "^1.1.5"
+  }
+}
