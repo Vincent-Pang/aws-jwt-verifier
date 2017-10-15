@@ -12,10 +12,9 @@ yarn add aws-jwt-verifier
 
 ### class AwsJwtVerifier
 
-
 #### `constructor(config: Partial<AwsJwtVerifierConfig>)`
 
-##### config: `Partial<AwsJwtVerifierConfig>`
+##### `config: Partial<AwsJwtVerifierConfig>`
 ```
 {
     // the content of jwks.json
@@ -52,7 +51,7 @@ If success, decoded jwt will be returned. Otherwise, error will be returned.
 
 ## Usage
 
-Init AwsJwtVerifier.
+Init AwsJwtVerifier
 ```
 const json = '{"keys":[{"alg":"RS256", xxxxx}';
 
