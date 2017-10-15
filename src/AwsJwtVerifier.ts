@@ -12,9 +12,9 @@ export class AwsJwtVerifier
     private config: Readonly<AwsJwtVerifierConfig>;
     private pems: {[key: string]: string};
 
-    public constructor(config: Partial<AwsJwtVerifierConfig>)
+    public constructor(config: AwsJwtVerifierConfig)
     {
-        this.config = this.initConfig(config);
+        this.config = this.genConfig(config);
 
         if (this.config.pems && this.config.jwksJson)
         {
@@ -34,7 +34,7 @@ export class AwsJwtVerifier
         }
     }
 
-    private initConfig(config: Partial<AwsJwtVerifierConfig>): AwsJwtVerifierConfig
+    private genConfig(config: AwsJwtVerifierConfig): AwsJwtVerifierConfig
     {
         const configBuilder = Builder<AwsJwtVerifierConfig>();
 

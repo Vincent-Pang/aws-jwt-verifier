@@ -12,9 +12,9 @@ yarn add aws-jwt-verifier
 
 ### class AwsJwtVerifier
 
-#### `constructor(config: Partial<AwsJwtVerifierConfig>)`
+#### `constructor(config: AwsJwtVerifierConfig)`
 
-##### `config: Partial<AwsJwtVerifierConfig>`
+##### `config`
 ```
 {
     // the content of jwks.json
