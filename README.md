@@ -47,7 +47,9 @@ yarn add aws-jwt-verifier
 If config.tokenType is 'access', please pass in access token.  
 If config.tokenType is 'id', please pass in id token.  
 
-If success, decoded jwt will be returned. Otherwise, error will be returned.
+##### return `Result<AwsAccessToken | AwsIdToken, string>`
+If success, decoded jwt will be returned. Otherwise, error will be returned.  
+The raw data is wrapped with [result-class](https://github.com/Vincent-Pang/result-class).  
 
 ## Usage
 
