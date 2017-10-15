@@ -8,17 +8,57 @@ A library to verify AWS jwt when using AWS user pool.
 yarn add aws-jwt-verifier
 ```
 
+## API
+
+### class AwsJwtVerifier
+
+
+#### `constructor(config: Partial<AwsJwtVerifierConfig>)`
+
+##### config: `Partial<AwsJwtVerifierConfig>`
+```
+{
+    // the content of jwks.json
+    // the json can be found at https://cognito-idp.{region}.amazonaws.com/{userPoolId}/.well-known/jwks.json
+    // either jwksJson or pems must be set,
+    // if both are set, pems will be used.
+    jwksJson?: string;
+    
+    // the jwksJson above will be transform to pems finally,
+    // you can input pems directly in order to save the jwkToPem transformation.
+    // either jwksJson or pems must be set,
+    // if both are set, pems will be used.
+    pems?: {[key: string]: string};
+    
+    // specify the type of token which will be passed into the function verify(token)
+    // 'access': access token
+    // 'id': id token
+    // 'access' will be used if this is not specified
+    tokenType?: 'access' | 'id';
+    
+    // issuer
+    // it should be something like https://cognito-idp.{region}.amazonaws.com/{userPoolId}
+    iss?: string;
+}
+```
+
+#### `verify(token: string): Result<AwsAccessToken | AwsIdToken, string>`
+
+##### token: string
+If config.tokenType is 'access', please pass in access token.  
+If config.tokenType is 'id', please pass in id token.  
+
+If success, decoded jwt will be returned. Otherwise, error will be returned.
+
 ## Usage
 
 Init AwsJwtVerifier.
 ```
-// paste the content of jwks.json here
-// https://cognito-idp.{region}.amazonaws.com/{userPoolId}/.well-known/jwks.json
 const json = '{"keys":[{"alg":"RS256", xxxxx}';
 
 const config: AwsJwtVerifierConfig = {
     jwksJson: json,
-    tokenType: 'access',  // specify the type of token to be passed into verify(), either 'access' or 'id' for access token or id token respectively
+    tokenType: 'access',
     iss: 'https://cognito-idp.{region}.amazonaws.com/{userPoolId}'
 };
 
@@ -27,14 +67,12 @@ const awsJwtVerifier = new AwsJwtVerifier(config);
 
 Verify token
 ```
-// the token type should be match with the config above
-// i.e. access token
 const token = 'xxxxxxx';
 
 const result = awsJwtVerifier.verify(token);
 
 if (result.is_ok())
-    console.log(result.unwrap());   // decoded jwt is returned
+    console.log(result.unwrap());   // decoded jwt
 else
     console.log(result.unwrap_err());   // error msg
 ```
