@@ -77,9 +77,11 @@ else
     console.log(result.unwrap_err());   // error msg
 ```
 
-If you want to know how to verify a token, please refer to the following documents.
-http://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-with-identity-providers.html  
-https://aws.amazon.com/blogs/mobile/integrating-amazon-cognito-user-pools-with-api-gateway/
+## Reference
+
+This library is implemented according to these documents.  
+* http://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-with-identity-providers.html 
+* https://aws.amazon.com/blogs/mobile/integrating-amazon-cognito-user-pools-with-api-gateway/
 
 ## Contributing
 
