@@ -1,7 +1,7 @@
 {
   "name": "aws-jwt-verifier",
   "repository": "https://github.com/Vincent-Pang/aws-jwt-verifier.git",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "build": "tsc",
